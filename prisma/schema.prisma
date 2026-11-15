@@ -1,0 +1,361 @@
+// VISMAY — Prisma schema
+// Light-theme curiosity-first learning companion.
+// SQLite here (sandbox-friendly); the schema is portable to PostgreSQL/Supabase
+// by switching the datasource provider and adding RLS policies server-side.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Users, preferences, onboarding
+// ---------------------------------------------------------------------------
+
+model User {
+  id              String   @id @default(cuid())
+  email           String?  @unique
+  name            String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  preferences     UserPreferences?
+  topics          Topic[]
+  learningEvents  LearningEvent[]
+  notes           Note[]
+  uploads         Upload[]
+  conceptNodes    ConceptNode[]
+  assistantChats  AssistantChat[]
+  challenges      Challenge[]
+}
+
+model UserPreferences {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Concise | Examples | Detailed | Exploratory
+  explanationStyle String  @default("concise")
+  technicalLevel   String  @default("balanced") // beginner | balanced | advanced
+  showDiagrams     Boolean @default(true)
+  showCitations    Boolean @default(true)
+  onboardingDone   Boolean @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Topics and their structure
+// ---------------------------------------------------------------------------
+
+model Topic {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // e.g. "Uniform Civil Code"
+  title         String
+  // Short slug for the URL state
+  slug          String
+  // Brief editorial description
+  description   String?
+  // Domain hint: "law", "physics", "history", "mathematics", "biology", "philosophy", "design", "general"
+  domain        String   @default("general")
+  // Whether this topic originated from user-supplied structure
+  userProvidedStructure Boolean @default(false)
+
+  // User-saved state on this topic
+  lastSectionId String?
+  savedForLater Boolean  @default(false)
+  pinned        Boolean  @default(false)
+
+  sections      TopicSection[]
+  events        LearningEvent[]
+  notes         Note[]
+  uploads       Upload[]
+  assistantChats AssistantChat[]
+  challenges    Challenge[]
+  sources       SourceDocument[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([userId, slug])
+  @@index([userId, updatedAt])
+}
+
+model TopicSection {
+  id            String   @id @default(cuid())
+  topicId       String
+  topic         Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  // 1, 2, 3 ... ordering
+  orderIndex    Int
+  title         String
+  // Short explanation shown when collapsed
+  shortSummary  String
+  // Longer body shown when expanded (markdown-safe plain text)
+  body          String?
+  // Subtopics as JSON array of { id, title, summary?, expanded? }
+  subtopicsJson String?
+
+  // Optional hint id (so the assistant can connect to previous learning)
+  contextualHintId String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([topicId, orderIndex])
+}
+
+// ---------------------------------------------------------------------------
+// Learning journey — chronological, NOT rearranged
+// ---------------------------------------------------------------------------
+
+model LearningEvent {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  // For ordering — actual time the event occurred
+  occurredAt    DateTime @default(now())
+
+  // One of: topic_started | section_opened | subtopic_explored | source_viewed
+  //       | explanation_requested | visual_viewed | challenge_attempted
+  //       | note_saved | discovery_followed | topic_resumed
+  type          String
+
+  // Human-readable label, e.g. "Opened Article 44"
+  label         String
+  // Optional detail / excerpt
+  detail        String?
+
+  // Parent event — for branching discoveries
+  parentId      String?
+
+  // Optional linkage to a section or source
+  sectionId     String?
+  sourceId      String?
+  source        SourceDocument? @relation("SourceEvents", fields: [sourceId], references: [id], onDelete: SetNull)
+
+  createdAt     DateTime @default(now())
+
+  @@index([userId, occurredAt])
+  @@index([topicId, occurredAt])
+}
+
+// ---------------------------------------------------------------------------
+// Connected concepts — logical graph, separate from chronology
+// ---------------------------------------------------------------------------
+
+model ConceptNode {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId       String?
+
+  title         String
+  description   String?
+  domain        String?
+  // Optional position for graph layout
+  posJson       String?
+
+  edgesFrom     ConceptEdge[] @relation("ConceptEdgeFrom")
+  edgesTo       ConceptEdge[] @relation("ConceptEdgeTo")
+
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, title])
+}
+
+model ConceptEdge {
+  id            String   @id @default(cuid())
+  fromId        String
+  toId          String
+  // "prerequisite" | "related" | "extends" | "contrasts"
+  relationship  String   @default("related")
+  note          String?
+
+  from          ConceptNode @relation("ConceptEdgeFrom", fields: [fromId], references: [id], onDelete: Cascade)
+  to            ConceptNode @relation("ConceptEdgeTo", fields: [toId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+
+  @@unique([fromId, toId, relationship])
+}
+
+// Self-relation on ConceptNode for edges
+// (Prisma requires explicit back-relations)
+// Note: ConceptNode already has implicit relations via ConceptEdge.from/to above.
+
+// ---------------------------------------------------------------------------
+// Sources and passages — research pipeline
+// ---------------------------------------------------------------------------
+
+model SourceDocument {
+  id            String   @id @default(cuid())
+  userId        String?
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  // "primary" | "secondary" | "commentary" | "uncertain" | "conflicting" | "unchecked"
+  tier          String   @default("secondary")
+  // "constitution" | "legislation" | "judgment" | "textbook" | "article" | "paper" | "video" | "upload" | "other"
+  kind          String   @default("article")
+
+  title         String
+  url           String?
+  // Site / publisher
+  source        String?
+  // ISO date string if known
+  publishedDate String?
+  // Fetched snippet (short excerpt)
+  snippet       String?
+  // Full extracted text (if we fetched it) — capped
+  fullText      String?
+
+  // Verification state
+  verified      Boolean  @default(false)
+  // Notes on coverage / uncertainty
+  coverageNote  String?
+
+  // For uploaded PDFs / notes
+  uploadId      String?
+  fileName      String?
+  mimeType      String?
+  fileSize      Int?
+
+  createdAt     DateTime @default(now())
+
+  passages      SourcePassage[]
+  events        LearningEvent[] @relation("SourceEvents")
+}
+
+model SourcePassage {
+  id            String   @id @default(cuid())
+  sourceId      String
+  source        SourceDocument @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  // The excerpt itself — kept short to respect copyright
+  passage       String
+  // Optional page or location marker ("p. 12", "Section 3.2", "00:04:30")
+  locator       String?
+
+  // Optional embedding stored as JSON number array (portable to pgvector later)
+  embeddingJson String?
+
+  createdAt     DateTime @default(now())
+
+  @@index([sourceId])
+}
+
+// ---------------------------------------------------------------------------
+// Notes (user-created / saved)
+// ---------------------------------------------------------------------------
+
+model Note {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  sourceId      String?
+
+  title         String?
+  body          String
+  // "manual" | "saved_excerpt" | "assistant_summary"
+  kind          String   @default("manual")
+
+  // For saved excerpts
+  excerpt       String?
+  excerptLocator String?
+
+  pinned        Boolean  @default(false)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, updatedAt])
+  @@index([topicId])
+}
+
+// ---------------------------------------------------------------------------
+// Uploads
+// ---------------------------------------------------------------------------
+
+model Upload {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  fileName      String
+  // Stored locally under uploads/ dir (sandbox). In production this would be
+  // Supabase private storage.
+  storagePath   String
+  mimeType      String
+  fileSize      Int
+  // Extracted text from the upload (for indexing / source-based Q&A)
+  extractedText String?
+  // Parse status
+  status        String   @default("pending") // pending | ready | failed
+  errorMessage  String?
+
+  createdAt     DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Assistant conversations
+// ---------------------------------------------------------------------------
+
+model AssistantChat {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  // Context: what triggered this chat (e.g. "contextual:Fundamental Rights", "selection:explain")
+  context       String?
+
+  messagesJson  String   // JSON array of { role, content }
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, updatedAt])
+  @@index([topicId])
+}
+
+// ---------------------------------------------------------------------------
+// Challenges & attempts (user-requested practice)
+// ---------------------------------------------------------------------------
+
+model Challenge {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId       String
+  topic         Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  // "conceptual" | "derivational" | "problem_solving"
+  difficulty    String   @default("conceptual")
+  prompt        String
+  // Optional expected reasoning / answer key (kept private to the AI)
+  expectedJson  String?
+
+  attemptsJson  String?  // JSON array of { attempt, feedback, correct, at }
+  solved        Boolean  @default(false)
+
+  createdAt     DateTime @default(now())
+
+  @@index([userId, createdAt])
+}

@@ -1,0 +1,15 @@
+.scene{position:absolute;inset:0;overflow:hidden;pointer-events:none;isolation:isolate;z-index:0}
+.layer{position:absolute;pointer-events:none;user-select:none;will-change:transform}
+.layer img{object-fit:contain}
+.sky{left:0;top:0;width:100%;height:75%;opacity:.55}.sky img{object-fit:fill}
+.landscape{left:0;right:0;bottom:-12px;width:100%;height:360px;opacity:.9}.landscape img{object-fit:cover;object-position:center bottom}
+.arch{right:0;bottom:20px;width:min(29vw,400px);height:560px;opacity:.72}.arch img{object-position:right bottom}
+.wash{position:absolute;left:20%;top:14%;width:61%;height:58%;background:radial-gradient(ellipse,rgba(250,249,243,.87) 12%,rgba(250,249,243,.52) 48%,transparent 73%)}
+
+/* Calm variant for the topic reading view — quieter backdrop */
+.scene.calm .sky{opacity:.18}
+.scene.calm .landscape{opacity:.28;height:240px}
+.scene.calm .wash{opacity:.5}
+
+@media(max-width:800px){.arch{width:44vw;right:-9vw;opacity:.3}.landscape{height:240px}.sky{opacity:.32}.wash{left:0;width:100%}}
+@media(prefers-reduced-motion:reduce){.layer{will-change:auto;transform:none!important}}

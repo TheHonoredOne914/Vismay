@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* VISMAY — light theme only. No dark mode, no dark variants. */
+
+@theme inline {
+  --color-background: var(--vismay-bg);
+  --color-foreground: var(--vismay-ink);
+  --color-paper: var(--vismay-paper);
+  --color-cream: var(--vismay-cream);
+  --color-forest: var(--vismay-forest);
+  --color-sage: var(--vismay-sage);
+  --color-gold: var(--vismay-gold);
+  --color-ink: var(--vismay-ink);
+  --color-ivory: var(--vismay-bg);
+  --color-muted: var(--vismay-muted);
+  --color-muted-foreground: var(--vismay-muted-fg);
+  --color-border: var(--vismay-border);
+  --color-input: var(--vismay-input);
+  --color-ring: var(--vismay-ring);
+  --color-primary: var(--vismay-forest);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--vismay-cream);
+  --color-secondary-foreground: var(--vismay-ink);
+  --color-accent: var(--vismay-sage);
+  --color-accent-foreground: var(--vismay-forest);
+  --color-card: var(--vismay-paper);
+  --color-card-foreground: var(--vismay-ink);
+  --color-popover: var(--vismay-paper);
+  --color-popover-foreground: var(--vismay-ink);
+  --color-destructive: oklch(0.55 0.18 28);
+  --color-destructive-foreground: #ffffff;
+  --color-sidebar: var(--vismay-paper);
+  --color-sidebar-foreground: var(--vismay-ink);
+  --color-sidebar-border: var(--vismay-border);
+  --color-sidebar-ring: var(--vismay-ring);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-deva: var(--font-tiro-devanagari), "Noto Serif Devanagari", serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+}
+
+:root {
+  /* Vismay palette — light only */
+  --vismay-bg: #F8F6F1;          /* warm ivory */
+  --vismay-cream: #EFECE5;       /* soft cream */
+  --vismay-paper: #FFFDF8;       /* reading paper */
+  --vismay-forest: #244737;      /* deep forest green */
+  --vismay-sage: #A1B3A0;        /* muted sage */
+  --vismay-gold: #C7A875;        /* antique gold */
+  --vismay-ink: #20231F;         /* dark ink */
+  --vismay-muted: #EFECE5;
+  --vismay-muted-fg: #6E7A6E;
+  --vismay-border: #DDD9CE;
+  --vismay-input: #E3E0D5;
+  --vismay-ring: #C7A875;
+  --radius: 14px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body {
+    background-color: var(--vismay-bg);
+    color: var(--vismay-ink);
+  }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Elegant serif for headings — used via .font-serif or direct family */
+  ::selection {
+    background-color: rgba(199, 168, 117, 0.28);
+    color: var(--vismay-ink);
+  }
+}
+
+/* Subtle, premium scrollbars */
+@layer utilities {
+  .vismay-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .vismay-scroll::-webkit-scrollbar-track { background: transparent; }
+  .vismay-scroll::-webkit-scrollbar-thumb {
+    background: rgba(161, 179, 160, 0.45);
+    border-radius: 9999px;
+  }
+  .vismay-scroll::-webkit-scrollbar-thumb:hover { background: rgba(161, 179, 160, 0.7); }
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* Soft warm card shadow */
+  .shadow-warm { box-shadow: 0 18px 55px rgba(47, 71, 52, 0.06); }
+  .shadow-warm-lg { box-shadow: 0 24px 70px rgba(47, 71, 52, 0.10); }
+  .shadow-soft { box-shadow: 0 8px 22px rgba(36, 71, 55, 0.05); }
+
+  /* Editorial type helpers */
+  .font-serif-display { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; }
+  .font-devanagari { font-family: var(--font-deva); }
+
+  /* Subtle entrance — replaced by motion in components, kept for non-JS fallback */
+  .reveal-init { opacity: 0; transform: translateY(18px); }
+}
+
+/* Topic reading page ambient hint — quieter than homepage */
+.topic-ambient::before {
+  content: "";
+  position: absolute;
+  top: 70px; right: -10px;
+  width: 170px; height: 260px;
+  background: url('/visuals/observatory-arch.svg') center / contain no-repeat;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
