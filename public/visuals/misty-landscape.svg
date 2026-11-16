@@ -1,6 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 510" fill="none">
-<defs><linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8FA9A1" stop-opacity=".48"/><stop offset="1" stop-color="#E5EAD9" stop-opacity=".68"/></linearGradient><linearGradient id="mid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#BACABB" stop-opacity=".67"/><stop offset="1" stop-color="#F7F5EB" stop-opacity=".9"/></linearGradient><linearGradient id="near" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#C5D1BD"/><stop offset="1" stop-color="#F8F6F0"/></linearGradient><linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F8F6F0" stop-opacity="0"/><stop offset=".65" stop-color="#F8F6F0" stop-opacity=".65"/><stop offset="1" stop-color="#F8F6F0"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="22"/></filter></defs>
-<path d="M0 337 76 278 134 310 205 236 262 274 346 189 426 275 510 228 600 302 690 211 772 276 851 175 935 284 1018 222 1090 292 1191 207 1281 287 1350 234 1440 294 1524 210 1600 278V510H0Z" fill="url(#far)"/>
-<path d="M0 381 119 331 200 350 290 281 388 352 475 292 576 369 659 311 750 357 828 273 941 364 1029 312 1140 366 1232 302 1337 358 1440 291 1600 366V510H0Z" fill="url(#mid)"/>
-<path d="M0 418Q106 365 217 402T438 397Q561 353 667 405T893 390Q1000 354 1134 413T1375 392Q1481 364 1600 408V510H0Z" fill="url(#near)"/>
-<path d="M-30 412Q440 353 820 415T1650 382" stroke="#F8F8F0" stroke-opacity=".85" stroke-width="26" filter="url(#blur)"/><rect y="315" width="1600" height="195" fill="url(#fog)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" fill="none" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="far-ridge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#9DB3AC" stop-opacity=".42"/>
+      <stop offset=".6" stop-color="#C5D2C2" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#E8ECDE" stop-opacity=".75"/>
+    </linearGradient>
+    <linearGradient id="mid-ridge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#A8BBA8" stop-opacity=".62"/>
+      <stop offset=".5" stop-color="#C8D4C0" stop-opacity=".78"/>
+      <stop offset="1" stop-color="#EFF1E6" stop-opacity=".92"/>
+    </linearGradient>
+    <linearGradient id="near-ridge" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#8FA890"/>
+      <stop offset=".45" stop-color="#B4C4AE"/>
+      <stop offset="1" stop-color="#F6F4ED"/>
+    </linearGradient>
+    <linearGradient id="foreground" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#6E8A6E"/>
+      <stop offset=".4" stop-color="#94A890"/>
+      <stop offset="1" stop-color="#D4D8C8"/>
+    </linearGradient>
+    <linearGradient id="fog-band" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#F8F6F1" stop-opacity="0"/>
+      <stop offset=".4" stop-color="#F8F6F1" stop-opacity=".5"/>
+      <stop offset=".7" stop-color="#F8F6F1" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#F8F6F1"/>
+    </linearGradient>
+    <filter id="soft-blur"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="heavy-blur"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+
+  <!-- Distant ridge — heaviest blur, most faded -->
+  <g filter="url(#heavy-blur)" opacity=".6">
+    <path d="M0 340 L60 295 L120 318 L190 252 L250 282 L320 218 L400 272 L470 232 L540 288 L610 242 L680 296 L750 226 L820 282 L890 238 L960 290 L1030 248 L1100 294 L1180 232 L1260 286 L1340 250 L1420 292 L1500 238 L1600 282 V520 H0Z" fill="url(#far-ridge)"/>
+  </g>
+
+  <!-- Mid ridge — medium blur -->
+  <g filter="url(#soft-blur)" opacity=".75">
+    <path d="M0 380 L90 335 L170 358 L250 292 L340 352 L420 302 L510 372 L590 318 L680 362 L760 288 L850 356 L930 312 L1020 366 L1100 302 L1190 358 L1270 292 L1360 350 L1440 288 L1530 352 L1600 318 V520 H0Z" fill="url(#mid-ridge)"/>
+  </g>
+
+  <!-- Near ridge — sharp, darker -->
+  <path d="M0 418 Q100 372 200 402 Q310 432 420 398 Q530 368 640 408 Q750 438 860 402 Q970 372 1080 412 Q1190 442 1300 408 Q1410 378 1520 412 Q1580 428 1600 418 V520 H0Z" fill="url(#near-ridge)"/>
+
+  <!-- Foreground hills with tree silhouettes -->
+  <path d="M0 462 Q80 438 160 452 Q240 466 320 446 Q400 426 480 456 Q560 486 640 462 Q720 438 800 456 Q880 474 960 452 Q1040 430 1120 458 Q1200 486 1280 464 Q1360 442 1440 460 Q1520 478 1600 458 V520 H0Z" fill="url(#foreground)" opacity=".88"/>
+
+  <!-- Tree silhouettes on near ridge -->
+  <g fill="#5A7258" opacity=".55">
+    <path d="M120 442 L122 432 L118 432 L120 442 M118 438 Q112 432 114 426 Q116 422 120 420 Q124 422 126 426 Q128 432 122 438 Z"/>
+    <path d="M340 436 L342 426 L338 426 L340 436 M338 432 Q332 426 334 420 Q336 416 340 414 Q344 416 346 420 Q348 426 342 432 Z"/>
+    <path d="M580 446 L582 436 L578 436 L580 446 M578 442 Q572 436 574 430 Q576 426 580 424 Q584 426 586 430 Q588 436 582 442 Z"/>
+    <path d="M820 440 L822 430 L818 430 L820 440 M818 436 Q812 430 814 424 Q816 420 820 418 Q824 420 826 424 Q828 430 822 436 Z"/>
+    <path d="M1060 448 L1062 438 L1058 438 L1060 448 M1058 444 Q1052 438 1054 432 Q1056 428 1060 426 Q1064 428 1066 432 Q1068 438 1062 444 Z"/>
+    <path d="M1300 442 L1302 432 L1298 432 L1300 442 M1298 438 Q1292 432 1294 426 Q1296 422 1300 420 Q1304 422 1306 426 Q1308 432 1302 438 Z"/>
+    <path d="M1480 450 L1482 440 L1478 440 L1480 450 M1478 446 Q1472 440 1474 434 Q1476 430 1480 428 Q1484 430 1486 434 Q1488 440 1482 446 Z"/>
+  </g>
+
+  <!-- Fog band drifting between ridges -->
+  <rect x="0" y="350" width="1600" height="80" fill="url(#fog-band)" opacity=".7"/>
+  <rect x="0" y="400" width="1600" height="60" fill="url(#fog-band)" opacity=".5"/>
+
+  <!-- Subtle birds -->
+  <g stroke="#6E7E68" stroke-width="1" fill="none" opacity=".4">
+    <path d="M280 180 Q285 176 290 180 Q295 176 300 180"/>
+    <path d="M320 200 Q324 197 328 200 Q332 197 336 200"/>
+    <path d="M1100 170 Q1105 166 1110 170 Q1115 166 1120 170"/>
+  </g>
+</svg>

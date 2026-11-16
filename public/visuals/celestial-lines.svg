@@ -1,1 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 540" fill="none"><g stroke="#BBA478" stroke-width="1.2" opacity=".57"><path d="M180 420C340 75 895-92 1233 205"/><path d="M205 444C413 48 1017-26 1336 275" opacity=".32"/><ellipse cx="1145" cy="177" rx="176" ry="56" transform="rotate(-29 1145 177)" stroke-dasharray="5 11"/></g><g fill="#B49A60"><circle cx="508" cy="132" r="4.2"/><circle cx="904" cy="74" r="3"/><circle cx="1242" cy="208" r="5"/><circle cx="1413" cy="91" r="2.5"/></g><g stroke="#C6B795" opacity=".58" stroke-width=".9"><path d="M-95 132Q190 274 290 85T735 88"/><path d="M-95 144Q190 286 290 97T735 100"/><path d="M-95 156Q190 298 290 109T735 112"/><path d="M1280 87Q1444 41 1608 158M1280 103Q1444 57 1608 174M1280 119Q1444 73 1608 190"/></g><g stroke="#B99B66" stroke-width="1" opacity=".8"><path d="m338 62 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z"/><path d="m1390 320 4 9 9 4-9 4-4 9-4-9-9-4 9-4Z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 560" fill="none" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="orbit-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#C7A875" stop-opacity="0"/>
+      <stop offset=".3" stop-color="#C7A875" stop-opacity=".6"/>
+      <stop offset=".7" stop-color="#C7A875" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#C7A875" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="star-glow" cx=".5" cy=".5" r=".5">
+      <stop stop-color="#E8D5A0" stop-opacity=".8"/>
+      <stop offset=".5" stop-color="#C7A875" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#C7A875" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Large orbital ellipses (celestial mechanics) -->
+  <g stroke="url(#orbit-fade)" stroke-width="1" fill="none">
+    <ellipse cx="800" cy="280" rx="620" ry="140" transform="rotate(-12 800 280)" stroke-dasharray="2 8"/>
+    <ellipse cx="800" cy="280" rx="480" ry="100" transform="rotate(-8 800 280)" stroke-dasharray="3 10" opacity=".7"/>
+    <ellipse cx="800" cy="280" rx="340" ry="70" transform="rotate(-5 800 280)" opacity=".6"/>
+    <ellipse cx="1100" cy="200" rx="280" ry="80" transform="rotate(-22 1100 200)" stroke-dasharray="4 12" opacity=".5"/>
+    <ellipse cx="400" cy="180" rx="220" ry="55" transform="rotate(15 400 180)" stroke-dasharray="2 8" opacity=".4"/>
+  </g>
+
+  <!-- Secondary fine orbital arcs -->
+  <g stroke="#A1B3A0" stroke-width=".8" fill="none" opacity=".4">
+    <path d="M100 420 C400 120 1200 80 1550 380"/>
+    <path d="M80 440 C400 160 1200 120 1530 400" opacity=".6"/>
+    <path d="M60 460 C400 200 1200 160 1510 420" opacity=".4"/>
+  </g>
+
+  <!-- Constellation: a delicate connected star pattern (left side) -->
+  <g stroke="#C7A875" stroke-width=".7" fill="none" opacity=".5">
+    <!-- Constellation 1 (upper left) -->
+    <path d="M180 130 L240 95 L295 140 L340 110 L385 155"/>
+    <!-- Constellation 2 (upper right) -->
+    <path d="M1150 90 L1210 130 L1275 105 L1325 145 L1380 115"/>
+  </g>
+
+  <!-- Stars: small dots and 4-point sparkle stars -->
+  <g fill="#C7A875">
+    <!-- Small circular stars -->
+    <circle cx="180" cy="130" r="2.5" opacity=".9"/>
+    <circle cx="240" cy="95" r="2" opacity=".8"/>
+    <circle cx="295" cy="140" r="3" opacity=".9"/>
+    <circle cx="340" cy="110" r="2" opacity=".7"/>
+    <circle cx="385" cy="155" r="2.5" opacity=".85"/>
+    <circle cx="1150" cy="90" r="2.5" opacity=".9"/>
+    <circle cx="1210" cy="130" r="2" opacity=".8"/>
+    <circle cx="1275" cy="105" r="3" opacity=".9"/>
+    <circle cx="1325" cy="145" r="2" opacity=".7"/>
+    <circle cx="1380" cy="115" r="2.5" opacity=".85"/>
+    <circle cx="620" cy="75" r="2" opacity=".6"/>
+    <circle cx="780" cy="50" r="2.5" opacity=".7"/>
+    <circle cx="900" cy="180" r="2" opacity=".5"/>
+    <circle cx="50" cy="280" r="1.8" opacity=".5"/>
+    <circle cx="1550" cy="250" r="2" opacity=".6"/>
+  </g>
+
+  <!-- 4-point sparkle stars (larger, more prominent) -->
+  <g fill="#D4B888" opacity=".75">
+    <path d="M520 110 L524 120 L534 124 L524 128 L520 138 L516 128 L506 124 L516 120 Z"/>
+    <path d="M1020 60 L1023 67 L1030 70 L1023 73 L1020 80 L1017 73 L1010 70 L1017 67 Z"/>
+    <path d="M1420 200 L1423 207 L1430 210 L1423 213 L1420 220 L1417 213 L1410 210 L1417 207 Z"/>
+    <path d="M180 380 L183 387 L190 390 L183 393 L180 400 L177 393 L170 390 L177 387 Z"/>
+  </g>
+
+  <!-- Soft star glows (radial gradients) -->
+  <g opacity=".5">
+    <circle cx="295" cy="140" r="12" fill="url(#star-glow)"/>
+    <circle cx="1275" cy="105" r="14" fill="url(#star-glow)"/>
+    <circle cx="780" cy="50" r="10" fill="url(#star-glow)"/>
+  </g>
+
+  <!-- A single orbiting body (planet) on the main orbit -->
+  <circle cx="1180" cy="200" r="6" fill="#C7A875" opacity=".7"/>
+  <circle cx="1180" cy="200" r="14" fill="url(#star-glow)" opacity=".6"/>
+  <circle cx="420" cy="170" r="5" fill="#A1B3A0" opacity=".6"/>
+  <circle cx="420" cy="170" r="11" fill="url(#star-glow)" opacity=".4"/>
+</svg>

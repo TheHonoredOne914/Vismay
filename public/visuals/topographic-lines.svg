@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 480" fill="none" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="contour-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#B5A485" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#B5A485" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#B5A485" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Concentric topographic contours — left cluster -->
+  <g stroke="url(#contour-fade)" stroke-width=".7" fill="none">
+    <path d="M0 280 Q80 240 160 250 Q240 260 320 230 Q400 200 480 220 Q560 240 640 260" opacity=".6"/>
+    <path d="M0 295 Q80 255 160 265 Q240 275 320 245 Q400 215 480 235 Q560 255 640 275" opacity=".55"/>
+    <path d="M0 310 Q80 270 160 280 Q240 290 320 260 Q400 230 480 250 Q560 270 640 290" opacity=".5"/>
+    <path d="M0 325 Q80 285 160 295 Q240 305 320 275 Q400 245 480 265 Q560 285 640 305" opacity=".45"/>
+    <path d="M0 340 Q80 300 160 310 Q240 320 320 290 Q400 260 480 280 Q560 300 640 320" opacity=".4"/>
+    <path d="M0 355 Q80 315 160 325 Q240 335 320 305 Q400 275 480 295 Q560 315 640 335" opacity=".35"/>
+    <path d="M0 370 Q80 330 160 340 Q240 350 320 320 Q400 290 480 310 Q560 330 640 350" opacity=".3"/>
+  </g>
+
+  <!-- Concentric topographic contours — right cluster -->
+  <g stroke="url(#contour-fade)" stroke-width=".7" fill="none">
+    <path d="M960 280 Q1040 240 1120 250 Q1200 260 1280 230 Q1360 200 1440 220 Q1520 240 1600 260" opacity=".6"/>
+    <path d="M960 295 Q1040 255 1120 265 Q1200 275 1280 245 Q1360 215 1440 235 Q1520 255 1600 275" opacity=".55"/>
+    <path d="M960 310 Q1040 270 1120 280 Q1200 290 1280 260 Q1360 230 1440 250 Q1520 270 1600 290" opacity=".5"/>
+    <path d="M960 325 Q1040 285 1120 295 Q1200 305 1280 275 Q1360 245 1440 265 Q1520 285 1600 305" opacity=".45"/>
+    <path d="M960 340 Q1040 300 1120 310 Q1200 320 1280 290 Q1360 260 1440 280 Q1520 300 1600 320" opacity=".4"/>
+    <path d="M960 355 Q1040 315 1120 325 Q1200 335 1280 305 Q1360 275 1440 295 Q1520 315 1600 335" opacity=".35"/>
+    <path d="M960 370 Q1040 330 1120 340 Q1200 350 1280 320 Q1360 290 1440 310 Q1520 330 1600 350" opacity=".3"/>
+  </g>
+
+  <!-- Central peak contour (elevation marker) -->
+  <g stroke="#C7A875" stroke-width=".6" fill="none" opacity=".3">
+    <ellipse cx="800" cy="260" rx="40" ry="15" transform="rotate(-3 800 260)"/>
+    <ellipse cx="800" cy="260" rx="80" ry="28" transform="rotate(-3 800 260)"/>
+    <ellipse cx="800" cy="260" rx="130" ry="42" transform="rotate(-3 800 260)"/>
+    <ellipse cx="800" cy="260" rx="190" ry="58" transform="rotate(-3 800 260)"/>
+  </g>
+
+  <!-- Elevation dots (survey markers) -->
+  <g fill="#C7A875" opacity=".4">
+    <circle cx="800" cy="260" r="1.5"/>
+    <circle cx="240" cy="250" r="1"/>
+    <circle cx="1280" cy="250" r="1"/>
+    <circle cx="160" cy="265" r="1"/>
+    <circle cx="1440" cy="265" r="1"/>
+  </g>
+
+  <!-- Fine dashed traverse lines -->
+  <g stroke="#B5A485" stroke-width=".5" fill="none" stroke-dasharray="3 8" opacity=".3">
+    <path d="M0 240 Q400 200 800 220 Q1200 240 1600 200"/>
+    <path d="M0 400 Q400 360 800 380 Q1200 400 1600 360"/>
+  </g>
+</svg>

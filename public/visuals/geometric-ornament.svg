@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="ornament-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#D4B888"/>
+      <stop offset=".5" stop-color="#C7A875"/>
+      <stop offset="1" stop-color="#A88858"/>
+    </linearGradient>
+  </defs>
+
+  <g opacity=".6">
+    <!-- Outer circle -->
+    <circle cx="100" cy="100" r="92" stroke="url(#ornament-gold)" stroke-width=".8" fill="none"/>
+    <circle cx="100" cy="100" r="86" stroke="url(#ornament-gold)" stroke-width=".5" fill="none" opacity=".6"/>
+
+    <!-- Compass rose — 8-point star -->
+    <g stroke="url(#ornament-gold)" stroke-width=".8" fill="none">
+      <!-- Cardinal points -->
+      <path d="M100 14 L100 186" />
+      <path d="M14 100 L186 100" />
+      <!-- Diagonal points -->
+      <path d="M39 39 L161 161" opacity=".7"/>
+      <path d="M161 39 L39 161" opacity=".7"/>
+    </g>
+
+    <!-- Main 4-point compass star (filled) -->
+    <path d="M100 100 L100 28 L106 100 Z M100 100 L100 172 L94 100 Z M100 100 L172 100 L100 106 Z M100 100 L28 100 L100 94 Z" fill="url(#ornament-gold)" opacity=".55"/>
+
+    <!-- Central medallion -->
+    <circle cx="100" cy="100" r="14" stroke="url(#ornament-gold)" stroke-width="1" fill="none"/>
+    <circle cx="100" cy="100" r="6" fill="url(#ornament-gold)" opacity=".5"/>
+
+    <!-- Decorative tick marks around the outer ring -->
+    <g stroke="url(#ornament-gold)" stroke-width=".5" opacity=".5">
+      <line x1="100" y1="8" x2="100" y2="14"/>
+      <line x1="100" y1="186" x2="100" y2="192"/>
+      <line x1="8" y1="100" x2="14" y2="100"/>
+      <line x1="186" y1="100" x2="192" y2="100"/>
+      <line x1="33" y1="33" x2="38" y2="38"/>
+      <line x1="162" y1="162" x2="167" y2="167"/>
+      <line x1="162" y1="33" x2="167" y2="38" transform="scale(1 1)"/>
+      <line x1="33" y1="162" x2="38" y2="167"/>
+    </g>
+
+    <!-- Small inner fleur details -->
+    <g stroke="url(#ornament-gold)" stroke-width=".4" fill="none" opacity=".5">
+      <path d="M100 40 Q108 50 100 60 Q92 50 100 40 Z"/>
+      <path d="M100 140 Q108 150 100 160 Q92 150 100 140 Z"/>
+      <path d="M40 100 Q50 108 60 100 Q50 92 40 100 Z"/>
+      <path d="M140 100 Q150 108 160 100 Q150 92 140 100 Z"/>
+    </g>
+  </g>
+</svg>

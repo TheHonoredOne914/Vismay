@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" fill="none" preserveAspectRatio="xMaxYMax meet">
+  <defs>
+    <linearGradient id="leaf-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#A1B3A0" stop-opacity=".75"/>
+      <stop offset=".6" stop-color="#8A9E88" stop-opacity=".65"/>
+      <stop offset="1" stop-color="#6E8A6E" stop-opacity=".5"/>
+    </linearGradient>
+    <linearGradient id="stem-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#7A8E78" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#5A7258" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+
+  <g opacity=".7">
+    <!-- Main stem -->
+    <path d="M160 430 Q162 360 158 300 Q154 240 162 180 Q168 120 160 60" stroke="url(#stem-grad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- Leaves on the left side -->
+    <g fill="url(#leaf-grad)" stroke="#6E8A6E" stroke-width=".5" opacity=".8">
+      <!-- Lower left leaf -->
+      <path d="M158 380 Q120 375 95 355 Q90 345 100 340 Q130 345 155 365 Q160 375 158 380 Z"/>
+      <path d="M158 380 Q135 370 110 355" stroke="#6E8A6E" stroke-width=".5" fill="none" opacity=".5"/>
+
+      <!-- Mid left leaf -->
+      <path d="M158 300 Q110 295 78 270 Q73 258 85 254 Q120 262 155 285 Q160 295 158 300 Z"/>
+      <path d="M158 300 Q130 288 100 272" stroke="#6E8A6E" stroke-width=".5" fill="none" opacity=".5"/>
+
+      <!-- Upper left leaf -->
+      <path d="M160 210 Q125 205 100 185 Q96 175 108 172 Q135 180 158 198 Q162 205 160 210 Z"/>
+      <path d="M160 210 Q138 200 115 188" stroke="#6E8A6E" stroke-width=".5" fill="none" opacity=".5"/>
+    </g>
+
+    <!-- Leaves on the right side -->
+    <g fill="url(#leaf-grad)" stroke="#6E8A6E" stroke-width=".5" opacity=".8">
+      <!-- Lower right leaf -->
+      <path d="M162 340 Q200 335 225 315 Q230 305 220 300 Q190 305 165 325 Q160 335 162 340 Z"/>
+      <path d="M162 340 Q190 330 215 315" stroke="#6E8A6E" stroke-width=".5" fill="none" opacity=".5"/>
+
+      <!-- Mid right leaf -->
+      <path d="M162 250 Q210 245 242 220 Q247 208 235 204 Q200 212 165 235 Q160 245 162 250 Z"/>
+      <path d="M162 250 Q190 238 220 222" stroke="#6E8A6E" stroke-width=".5" fill="none" opacity=".5"/>
+
+      <!-- Upper right leaf -->
+      <path d="M162 150 Q195 145 218 125 Q222 115 210 112 Q185 120 162 138 Q158 145 162 150 Z"/>
+      <path d="M162 150 Q184 140 205 128" stroke="#6E8A6E" stroke-width=".5" fill="none" opacity=".5"/>
+    </g>
+
+    <!-- Small bud / flower at top -->
+    <g opacity=".75">
+      <circle cx="160" cy="55" r="6" fill="#C7A875" opacity=".6"/>
+      <circle cx="160" cy="55" r="3" fill="#D4B888" opacity=".8"/>
+      <!-- Petals -->
+      <path d="M160 49 Q155 42 150 45 Q148 50 154 54" fill="#C7A875" opacity=".4"/>
+      <path d="M160 49 Q165 42 170 45 Q172 50 166 54" fill="#C7A875" opacity=".4"/>
+      <path d="M160 61 Q155 68 150 65 Q148 60 154 56" fill="#C7A875" opacity=".4"/>
+      <path d="M160 61 Q165 68 170 65 Q172 60 166 56" fill="#C7A875" opacity=".4"/>
+    </g>
+
+    <!-- Fine vein details on a few leaves -->
+    <g stroke="#6E8A6E" stroke-width=".4" fill="none" opacity=".4">
+      <path d="M158 380 Q140 365 120 355"/>
+      <path d="M158 300 Q135 285 110 272"/>
+      <path d="M162 340 Q190 325 215 315"/>
+      <path d="M162 250 Q190 235 220 222"/>
+    </g>
+  </g>
+</svg>
